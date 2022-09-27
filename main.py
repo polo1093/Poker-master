@@ -144,33 +144,37 @@ class ThreadManager(threading.Thread):
                         sys.exit()
 
             ready = False
-            while not ready:
-                config = get_config()
-                if table_scraper_name != config.config.get('main','table_scraper_name'):
-                    table_scraper_name = config.config.get('main','table_scraper_name')
-                    log.info(f"Loading table scraper info for {table_scraper_name}")
-                    table_dict = mongo.get_table(table_scraper_name)
-                    nn_model = None
-                    slow_table = False
-                    if 'use_neural_network' in table_dict and table_dict['use_neural_network'] == '2':
-                        from tensorflow.keras.models import model_from_json
-                        nn_model = model_from_json(table_dict['_model'])
-                        mongo.load_table_nn_weights(table_scraper_name)
-                        nn_model.load_weights(get_dir('codebase') + '/loaded_model.h5')
-                        slow_table = True
+            #while not ready:
+            
+            config = get_config()
+            if table_scraper_name != config.config.get('main','table_scraper_name'):
+                table_scraper_name = config.config.get('main','table_scraper_name')
+                log.info(f"Loading table scraper info for {table_scraper_name}")
+                table_dict = mongo.get_table(table_scraper_name)
+                nn_model = None
+                slow_table = False
+                if 'use_neural_network' in table_dict and table_dict['use_neural_network'] == '2':
+                    from tensorflow.keras.models import model_from_json
+                    nn_model = model_from_json(table_dict['_model'])
+                    mongo.load_table_nn_weights(table_scraper_name)
+                    nn_model.load_weights(get_dir('codebase') + '/loaded_model.h5')
+                    slow_table = True
 
-                table = TableScreenBased(strategy, table_dict, self.gui_signals, self.game_logger, version, nn_model)
-                mouse = MouseMoverTableBased(table_dict)
-                mouse.move_mouse_away_from_buttons_jump()
-
+            table = TableScreenBased(strategy, table_dict, self.gui_signals, self.game_logger, version, nn_model)
+            mouse = MouseMoverTableBased(table_dict)
+            mouse.move_mouse_away_from_buttons_jump()
+            x=5
+            while(x):
+                x-=1
+                log.info("mouse move")
                 mouse.mouse_mover( 100, 100, 600, 600)
-                time.sleep(6000)
+                time.sleep(4)
                 
 
 
 
 
-
+"""
                 ready = table.take_screenshot(True, strategy) and \
                         table.get_top_left_corner(strategy) and \
                         table.check_for_captcha(mouse) and \
@@ -268,23 +272,20 @@ class ThreadManager(threading.Thread):
                 if table.gameStage == 'PreFlop':
                     preflop_state.update_values(table, d.decision, history, d)
                 mongo.increment_plays(table_scraper_name)
-                log.info("=========== round end ===========")
+                log.info("=========== round end ===========")"""
 
 
 # ==== MAIN PROGRAM =====
 
 def run_poker():
     init_logger(screenlevel=logging.INFO, filename='deepmind_pokerbot', logdir='log')
-    # print(f"Screenloglevel: {screenloglevel}")
     log = logging.getLogger("")
-    log.info("Initializing program")
 
     # Back up the reference to the exceptionhook
     sys._excepthook = sys.excepthook
-    log.info("Check for auto-update")
     updater = UpdateChecker()
     updater.check_update(version)
-    log.info(f"Lastest version already installed: {version}")
+    
 
     def exception_hook(exctype, value, traceback):
         # Print the error and traceback
@@ -299,7 +300,7 @@ def run_poker():
 
     # Set the exception hook to our wrapping function
     sys.__excepthook__ = exception_hook
-
+    log.info(sys.argv)
     app = QtWidgets.QApplication(sys.argv)
     global ui  # pylint: disable=global-statement
     ui = UiPokerbot()
@@ -308,7 +309,8 @@ def run_poker():
     gui_signals = UIActionAndSignals(ui)
 
     t1 = ThreadManager(1, "Thread-1", 1, gui_signals, updater)
-    t1.start()
+    log.info("Thread-1")
+    t1.start()  # start the thread  and launch the run() method in the thread.
 
     try:
         sys.exit(app.exec_())
