@@ -163,46 +163,40 @@ class ThreadManager(threading.Thread):
             table = TableScreenBased(strategy, table_dict, self.gui_signals, self.game_logger, version, nn_model)
             mouse = MouseMoverTableBased(table_dict)
             mouse.move_mouse_away_from_buttons_jump()
-            x=5
-            while(x):
-                x-=1
-                log.info("mouse move")
-                mouse.mouse_mover( 100, 100, 600, 600)
-                time.sleep(4)
-                
 
 
 
 
-"""
-                ready = table.take_screenshot(True, strategy) and \
-                        table.get_top_left_corner(strategy) and \
-                        table.check_for_captcha(mouse) and \
-                        table.get_lost_everything(history, table, strategy, self.gui_signals) and \
-                        table.check_for_imback(mouse) and \
-                        table.check_for_resume_hand(mouse) and \
-                        table.check_for_button_if_slow_table(slow_table) and \
-                        table.get_my_cards() and \
-                        table.get_new_hand(mouse, history, strategy) and \
-                        table.get_table_cards(history) and \
-                        table.upload_collusion_wrapper(strategy, history) and \
-                        table.get_dealer_position() and \
-                        table.check_fast_fold(history, strategy, mouse) and \
-                        table.check_for_button() and \
-                        strategy.read_strategy() and \
-                        table.get_round_number(history) and \
-                        table.check_for_checkbutton() and \
-                        table.init_get_other_players_info() and \
-                        table.get_other_player_status(strategy, history) and \
-                        table.get_other_player_names(strategy) and \
-                        table.get_other_player_funds(strategy) and \
-                        table.get_total_pot_value(history) and \
-                        table.get_round_pot_value(history) and \
-                        table.check_for_call() and \
-                        table.check_for_betbutton() and \
-                        table.check_for_allincall() and \
-                        table.get_current_call_value(strategy) and \
-                        table.get_current_bet_value(strategy)
+
+
+            ready = table.take_screenshot(True, strategy) and \
+                    table.get_top_left_corner(strategy) and \
+                    table.check_for_captcha(mouse) and \
+                    table.get_lost_everything(history, table, strategy, self.gui_signals) and \
+                    table.check_for_imback(mouse) and \
+                    table.check_for_resume_hand(mouse) and \
+                    table.check_for_button_if_slow_table(slow_table) and \
+                    table.get_my_cards() and \
+                    table.get_new_hand(mouse, history, strategy) and \
+                    table.get_table_cards(history) and \
+                    table.upload_collusion_wrapper(strategy, history) and \
+                    table.get_dealer_position() and \
+                    table.check_fast_fold(history, strategy, mouse) and \
+                    table.check_for_button() and \
+                    strategy.read_strategy() and \
+                    table.get_round_number(history) and \
+                    table.check_for_checkbutton() and \
+                    table.init_get_other_players_info() and \
+                    table.get_other_player_status(strategy, history) and \
+                    table.get_other_player_names(strategy) and \
+                    table.get_other_player_funds(strategy) and \
+                    table.get_total_pot_value(history) and \
+                    table.get_round_pot_value(history) and \
+                    table.check_for_call() and \
+                    table.check_for_betbutton() and \
+                    table.check_for_allincall() and \
+                    table.get_current_call_value(strategy) and \
+                    table.get_current_bet_value(strategy)
 
             if not self.gui_signals.pause_thread:
                 config = get_config()
@@ -235,10 +229,6 @@ class ThreadManager(threading.Thread):
 
                 mouse.mouse_action(mouse_target, table.tlc, action_options)
 
-                # for pokerstars, high fold straight after all in call (fold button matches the stay in game)
-                if mouse_target == 'Call2' and table.allInCallButton:
-                    mouse_target = 'Fold'
-                    mouse.mouse_action(mouse_target, table.tlc, action_options)
 
                 table.time_action_completed = datetime.datetime.utcnow()
 
@@ -272,7 +262,15 @@ class ThreadManager(threading.Thread):
                 if table.gameStage == 'PreFlop':
                     preflop_state.update_values(table, d.decision, history, d)
                 mongo.increment_plays(table_scraper_name)
-                log.info("=========== round end ===========")"""
+                log.info("=========== round end ===========")
+                
+                x=5
+                while(x):
+                    x-=1
+                    log.info("mouse move")
+                    mouse.mouse_mover( 100, 100, 600, 600)
+                    time.sleep(4)
+                
 
 
 # ==== MAIN PROGRAM =====
