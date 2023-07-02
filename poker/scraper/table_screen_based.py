@@ -53,43 +53,6 @@ class TableScreenBased(Table):
         return True
 
     def check_for_captcha(self, mouse):
-        # func_dict = self.coo[inspect.stack()[0][3]][self.tbl]
-        # if func_dict['active']:
-        #     ChatWindow = self.crop_image(self.entireScreenPIL, self.tlc[0] + func_dict['x1'], self.tlc[1] + func_dict['y1'],
-        #                             self.tlc[0] + func_dict['x2'], self.tlc[1] + func_dict['y2'])
-        #     basewidth = 500
-        #     wpercent = (basewidth / float(ChatWindow.size[0]))
-        #     hsize = int((float(ChatWindow.size[1]) * float(wpercent)))
-        #     ChatWindow = ChatWindow.resize((basewidth, hsize), Image.ANTIALIAS)
-        #     # ChatWindow.show()
-        #     try:
-        #         t.chatText = (pytesseract.image_to_string(ChatWindow, None,
-        #         False, "-psm 6"))
-        #         t.chatText = re.sub("[^abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789\.]",
-        #         "", t.chatText)
-        #         keyword1 = 'disp'
-        #         keyword2 = 'left'
-        #         keyword3 = 'pic'
-        #         keyword4 = 'key'
-        #         keyword5 = 'lete'
-        #         log.debug("Recognised text: "+t.chatText)
-        #
-        #         if ((t.chatText.find(keyword1) > 0) or (t.chatText.find(keyword2)
-        #         > 0) or (
-        #                     t.chatText.find(keyword3) > 0) or
-        #                     (t.chatText.find(keyword4) > 0) or (
-        #                     t.chatText.find(keyword5) > 0)):
-        #             log.warning("Submitting Captcha")
-        #             captchaIMG = self.crop_image(self.crop_image(self.entireScreenPIL, self.tlc[0] + func_dict['x1_2'], self.tlc[1] + func_dict['y1_2'],
-        #                             self.tlc[0] + func_dict['x2_2'], self.tlc[1] + func_dict['y2_2']))
-        #             captchaIMG.save("pics/captcha.png")
-        #             # captchaIMG.show()
-        #             time.sleep(0.5)
-        #             t.captcha = solve_captcha("pics/captcha.png")
-        #             mouse.enter_captcha(t.captcha)
-        #             log.info("Entered captcha: "+str(t.captcha))
-        #     except:
-        #         log.warning("CheckingForCaptcha Error")
         return True
 
     def check_for_imback(self, mouse):
@@ -245,25 +208,6 @@ class TableScreenBased(Table):
         return True
 
     def get_other_player_names(self, p):
-        # if p.selected_strategy['gather_player_names'] == 1:
-        #     func_dict = self.coo[inspect.stack()[0][3]][self.tbl]
-        #     self.gui_signals.signal_status.emit("Get player names")
-        #
-        #     for i, fd in enumerate(func_dict):
-        #         self.gui_signals.signal_progressbar_increase.emit(2)
-        #         pil_image = self.crop_image(self.entireScreenPIL, self.tlc[0] + fd[0], self.tlc[1] + fd[1],
-        #                                     self.tlc[0] + fd[2], self.tlc[1] + fd[3])
-        #         basewidth = 500
-        #         wpercent = (basewidth / float(pil_image.size[0]))
-        #         hsize = int((float(pil_image.size[1]) * float(wpercent)))
-        #         pil_image = pil_image.resize((basewidth, hsize), Image.ANTIALIAS)
-        #         try:
-        #             recognizedText = (pytesseract.image_to_string(pil_image, None, False, "-psm 6"))
-        #             recognizedText = re.sub(r'[\W+]', '', recognizedText)
-        #             log.debug("Player name: " + recognizedText)
-        #             self.other_players[i]['name'] = recognizedText
-        #         except Exception as e:
-        #             log.debug("Pyteseract error in player name recognition: " + str(e))
         return True
 
     def get_other_player_funds(self, p):

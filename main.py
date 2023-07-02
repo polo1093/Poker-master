@@ -264,12 +264,7 @@ class ThreadManager(threading.Thread):
                 mongo.increment_plays(table_scraper_name)
                 log.info("=========== round end ===========")
                 
-                x=5
-                while(x):
-                    x-=1
-                    log.info("mouse move")
-                    mouse.mouse_mover( 100, 100, 600, 600)
-                    time.sleep(4)
+
                 
 
 
